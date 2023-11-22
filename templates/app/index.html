@@ -183,7 +183,7 @@
                                             </div>
             
                                             <div class="modal-footer">
-                                                <a href="/delete/{{acesso.11}}" class="btn btn-danger">Deletar</a>
+                                                <input type="button" class="btn btn-danger" id="delete_acesso" onclick="deleteAcesso('{{ acesso.11 }}')" value="Deletar" >
                                                 <input type="submit" class="btn btn-primary" value="Atualizar">
                                             </div>
                                         </div>
@@ -221,11 +221,7 @@
                         </svg></a>
                 {% endif %}
             </span>
-        </div>
-	
-            
-        
+        </div>    
     </div>
-    
 {% endblock conteudo %}
     

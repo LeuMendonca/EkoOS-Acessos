@@ -50,3 +50,13 @@ window.document.querySelector("input#senha_rustdesk").addEventListener("change",
 const remove_mensagem = setTimeout(()=>{
     window.document.getElementsByClassName("alert")[0].style.display = 'none'
 },5000)
+
+
+
+function deleteAcesso(seq_acesso){
+    if ( window.confirm("Deseja deletar este acesso?") == true ){
+        fetch(`/delete/${seq_acesso}`)
+        window.location.replace("/index/?status=4")
+    }
+}
+
