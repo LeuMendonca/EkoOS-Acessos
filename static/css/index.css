@@ -2,13 +2,19 @@
     font-family: Georgia, 'Times New Roman', Times, serif;
     box-shadow:0 0 1px black;
     margin-bottom: 20px;
-    background: white !important;
+    width: 100%;
+}
+
+#navegacao ul{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
 }
 
 #navegacao a{
     cursor: pointer;
     padding: 5px;
-    color: black;
     text-shadow: 1px 1px 1px white;
 }
 
@@ -86,4 +92,14 @@ table {
 
 .pagination a{
     color: black;
+}
+
+#alterarBackground {
+    border-style: groove;
+    border: 1px solid #575757;
+}
+
+
+#color_nav{
+    width:100px !important;
 }

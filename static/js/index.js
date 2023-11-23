@@ -1,5 +1,5 @@
 function valida_campos(){
-                        /* Se digitar o ID , tem que por a senha */
+//-----------------------------Validação dos Campos de Cadastro-------------------------------
     if (window.document.querySelector("input#id_teamviewer").value.length > 0){
         window.document.querySelector("input#senha_teamviewer").setAttribute("required","true")
     }else{
@@ -38,6 +38,7 @@ function valida_campos(){
     }
 }
 
+//---------------------------Adição dos eventos change aos componentes----------------------
 window.document.querySelector("input#id_teamviewer").addEventListener("change",valida_campos)
 window.document.querySelector("input#id_anydesk").addEventListener("change",valida_campos)
 window.document.querySelector("input#id_rustdesk").addEventListener("change",valida_campos)
@@ -46,12 +47,14 @@ window.document.querySelector("input#senha_anydesk").addEventListener("change",v
 window.document.querySelector("input#senha_rustdesk").addEventListener("change",valida_campos)
 
 
+//---------------Remoção da mensagem na tela-----------------
 
 const remove_mensagem = setTimeout(()=>{
     window.document.getElementsByClassName("alert")[0].style.display = 'none'
 },5000)
 
 
+// ---------------Confirmação exclusão de Acesso ----------------
 
 function deleteAcesso(seq_acesso){
     if ( window.confirm("Deseja deletar este acesso?") == true ){
@@ -60,3 +63,62 @@ function deleteAcesso(seq_acesso){
     }
 }
 
+
+// ----------------- Seleção Componentes-----------------------------
+
+let itemCorNav = window.document.querySelector("#color_nav")
+let itemCorLetraNav = window.document.querySelector("#colorLetrasNav")
+let barraNavegacao = window.document.querySelector("nav#navegacao")
+
+// ----------------- Nav---------------------------------
+
+itemCorNav.addEventListener("change", () =>{
+    const cor_selecionada = itemCorNav.value
+    salvarCorNoLocalStorage(cor_selecionada)
+    atualizarCorNaNavegacao(cor_selecionada)
+})
+
+function salvarCorNoLocalStorage(cor){
+    localStorage.setItem("corNav" , cor)
+}
+
+function atualizarCorNaNavegacao(cor){
+    barraNavegacao.style.backgroundColor = cor
+}
+
+// -----------------Letras Nav----------------------------
+
+itemCorLetraNav.addEventListener("change" , () =>{
+    const cor_selecionada = itemCorLetraNav.value
+    salvarCorLetrasNavNoLocalStorage(cor_selecionada)
+    atualizarCorLetraNaNavegacao(cor_selecionada)
+})
+
+function atualizarCorLetraNaNavegacao(cor){
+    document.querySelectorAll(".itemNav").forEach(item => {
+
+        item.style.color = cor;
+    });
+    }
+
+function salvarCorLetrasNavNoLocalStorage(cor){
+    localStorage.setItem("corLetrasNav" , cor)
+}
+
+
+
+// ------------------------Onload--------------------------------
+function carregarCores(){
+    const corArmazenada = localStorage.getItem("corNav")
+    const corLetraArmazenada = localStorage.getItem("corLetrasNav")
+
+    if (corArmazenada){
+        atualizarCorNaNavegacao(corArmazenada)
+        itemCorNav.value = corArmazenada
+    }
+
+    if (corLetraArmazenada){
+        atualizarCorLetraNaNavegacao(corLetraArmazenada)
+        itemCorLetraNav.value = corLetraArmazenada
+    }
+}

@@ -1,6 +1,7 @@
 from django.shortcuts import render,redirect
 from django.core.paginator import Paginator
 from django.db import connection
+from django.conf import settings
 import os
 import subprocess
 # Create your views here.
@@ -80,6 +81,7 @@ def cadastro(request):
         return redirect('/index/?status=1')
     else:
         return redirect('/index/?status=5')
+    
 def update(request,seq_acesso):
     cursor = connection.cursor()
     
@@ -121,5 +123,16 @@ def deletar(request,seq_acesso):
      return redirect("/index/?status=4")
 
 
+def configuracao_imagem(request):
+    if request.method == "POST":
+        print("passou aqui")
+        arquivo = request.FILES.get("customFileLang")
+        print(arquivo.name)
 
-    
+        caminho = os.path.join(settings.MEDIA_ROOT , "static" , "img" , "background.jpg" )
+
+        with open(caminho, "wb+") as caminho_destinatario:
+            for chunk in arquivo.chunks():
+                 caminho_destinatario.write(chunk)
+
+    return redirect('/index/')
