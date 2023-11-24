@@ -116,28 +116,33 @@ def update(request,seq_acesso):
 
 #---------------------------Acesso automatizado Team Viewer-------------------------------
 def acesso_teamviewer(request,seq_acesso):
-        cursor = connection.cursor()
-        cursor.execute(f"select team_viewer,senha_team_viewer from acessos where seq_acesso = {seq_acesso}")
-        dados = cursor.fetchall()
-        
+    cursor = connection.cursor()
+    cursor.execute(f"select team_viewer,senha_team_viewer from acessos where seq_acesso = {seq_acesso}")
+    dados = cursor.fetchall()
+    if dados[0][0]!= '':
         os.chdir("C:\Program Files (x86)\TeamViewer")
         script = f'''TeamViewer.exe -i "{dados[0][0]}" -p {dados[0][1]}'''
         subprocess.Popen(script, stdout=subprocess.PIPE, shell=True)
         
-        print(f"Conectando ID {dados[0]}")
         return redirect('/index/?status=3')
+    return redirect('/index/?status=7')
+    
+
+
 
 #---------------------------Acesso automatizado Anydesk-------------------------------
 def acesso_anydesk(request,seq_acesso):
     cursor = connection.cursor()
     cursor.execute(f"select anydesk , senha_anydesk from acessos where seq_acesso = {seq_acesso}")     
     conexao_anydesk = cursor.fetchall()
-    caminho_anydesk = os.chdir("C:\Program Files (x86)\AnyDesk")
-    script = f'''AnyDesk.exe --with-password={conexao_anydesk[0][1]} --address {conexao_anydesk[0][0]}'''
-    print(script)
-    subprocess.Popen(script, stdout=subprocess.PIPE, shell=True)
-    return redirect('/index/?status=3')
-    
+
+    if conexao_anydesk[0][0] != '':
+        os.chdir("C:\Program Files (x86)\AnyDesk")
+        script = f'''AnyDesk.exe --with-password={conexao_anydesk[0][1]} --address {conexao_anydesk[0][0]}'''
+        print(script)
+        subprocess.Popen(script, stdout=subprocess.PIPE, shell=True)
+        return redirect('/index/?status=3')
+    return redirect('/index/?status=6')    
 
 
 
@@ -154,16 +159,12 @@ def deletar(request,seq_acesso):
 # -----------------------------Configurações de Temas-------------------------------------
 def configuracao_imagem(request):
     if request.method == "POST":
-        print("passou aqui")
         arquivo = request.FILES.get("customFileLang")
-        print(arquivo.name)
+        if arquivo:
+            caminho = os.path.join(settings.MEDIA_ROOT , "static" , "img" , "background.jpg" )
 
-        caminho = os.path.join(settings.MEDIA_ROOT , "static" , "img" , "background.jpg" )
-
-        with open(caminho, "wb+") as caminho_destinatario:
-            for chunk in arquivo.chunks():
-                 caminho_destinatario.write(chunk)
+            with open(caminho, "wb+") as caminho_destinatario:
+                for chunk in arquivo.chunks():
+                    caminho_destinatario.write(chunk)
 
     return redirect('/index/')
-
-

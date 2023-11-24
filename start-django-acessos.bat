@@ -1,7 +1,7 @@
 @echo off
 
 cd C:\EkoOS Acessos
-python manage.py runserver 
+python manage.py runserverxxx
 
 pause
 exit;
