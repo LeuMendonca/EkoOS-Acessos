@@ -4,8 +4,9 @@ from django.db import connection
 from django.conf import settings
 import os
 import subprocess
-# Create your views here.
 
+
+#---------------------------------------Index da Aplicação----------------------------------
 def index(request):
 
         cursor = connection.cursor()
@@ -29,6 +30,11 @@ def index(request):
         
         return render(request,'app/index.html',{'status':status , 'acessos': page_obj })
 
+
+
+
+
+#--------------------------------------Cadastrar Acesso-------------------------------------
 def cadastro(request):
 
     cursor = connection.cursor()
@@ -82,6 +88,9 @@ def cadastro(request):
     else:
         return redirect('/index/?status=5')
     
+
+
+#-------------------------------Atualizar acesso-----------------------------------
 def update(request,seq_acesso):
     cursor = connection.cursor()
     
@@ -103,18 +112,36 @@ def update(request,seq_acesso):
     connection.commit()
     return redirect("/index/?status=2")
 
+
+
+#---------------------------Acesso automatizado Team Viewer-------------------------------
 def acesso_teamviewer(request,seq_acesso):
         cursor = connection.cursor()
         cursor.execute(f"select team_viewer,senha_team_viewer from acessos where seq_acesso = {seq_acesso}")
         dados = cursor.fetchall()
         
         os.chdir("C:\Program Files (x86)\TeamViewer")
-        comando = f'''TeamViewer.exe -i "{dados[0][0]}" -p {dados[0][1]}'''
-        subprocess.Popen(comando, stdout=subprocess.PIPE, shell=True)
+        script = f'''TeamViewer.exe -i "{dados[0][0]}" -p {dados[0][1]}'''
+        subprocess.Popen(script, stdout=subprocess.PIPE, shell=True)
         
         print(f"Conectando ID {dados[0]}")
         return redirect('/index/?status=3')
 
+#---------------------------Acesso automatizado Anydesk-------------------------------
+def acesso_anydesk(request,seq_acesso):
+    cursor = connection.cursor()
+    cursor.execute(f"select anydesk , senha_anydesk from acessos where seq_acesso = {seq_acesso}")     
+    conexao_anydesk = cursor.fetchall()
+    caminho_anydesk = os.chdir("C:\Program Files (x86)\AnyDesk")
+    script = f'''AnyDesk.exe --with-password={conexao_anydesk[0][1]} --address {conexao_anydesk[0][0]}'''
+    print(script)
+    subprocess.Popen(script, stdout=subprocess.PIPE, shell=True)
+    return redirect('/index/?status=3')
+    
+
+
+
+# ---------------------------------Deletar Acesso----------------------------------------
 def deletar(request,seq_acesso):
      cursor = connection.cursor()
      cursor.execute(f"delete from acessos where seq_acesso = {seq_acesso}")
@@ -123,6 +150,8 @@ def deletar(request,seq_acesso):
      return redirect("/index/?status=4")
 
 
+
+# -----------------------------Configurações de Temas-------------------------------------
 def configuracao_imagem(request):
     if request.method == "POST":
         print("passou aqui")
@@ -136,3 +165,6 @@ def configuracao_imagem(request):
                  caminho_destinatario.write(chunk)
 
     return redirect('/index/')
+
+
+

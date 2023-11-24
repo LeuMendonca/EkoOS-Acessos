@@ -78,7 +78,7 @@ tbody td:hover a:not(.acesso_team_viewer) {
     color: red !important;
 }
 
-.acesso_team_viewer:hover{
+.icone:hover{
     border: 1px solid black;
 }
 
