@@ -166,5 +166,6 @@ def configuracao_imagem(request):
 
     return redirect('/index/')
 
-
+def teste(request):
+     return redirect("/index/")
 
