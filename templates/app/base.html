@@ -1,0 +1,238 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    {% block head %}
+    
+    {% endblock head %}
+        
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'css/index.css' %}">
+</head>
+
+<body onload="carregarCores()">
+
+    <nav class="navbar navbar-expand-lg"  id="navegacao">
+        <div class="container-fluid">
+          <a class="navbar-brand itemNav" href="/index/">EkoOS Acessos</a>
+          <div class="collapse navbar-collapse" id="navbarColor02">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li>
+                    <a data-bs-toggle="modal" data-bs-target="#cadastro" class="navbar-brand itemNav">Cadastro</a>
+                </li>
+
+                
+
+                <li>
+                    <a data-bs-toggle="modal" data-bs-target="#configuracao" class="navbar-brand itemNav">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-gear" viewBox="0 0 16 16">
+                            <path d="M8 4.754a3.246 3.246 0 1 0 0 6.492 3.246 3.246 0 0 0 0-6.492zM5.754 8a2.246 2.246 0 1 1 4.492 0 2.246 2.246 0 0 1-4.492 0z"/>
+                            <path d="M9.796 1.343c-.527-1.79-3.065-1.79-3.592 0l-.094.319a.873.873 0 0 1-1.255.52l-.292-.16c-1.64-.892-3.433.902-2.54 2.541l.159.292a.873.873 0 0 1-.52 1.255l-.319.094c-1.79.527-1.79 3.065 0 3.592l.319.094a.873.873 0 0 1 .52 1.255l-.16.292c-.892 1.64.901 3.434 2.541 2.54l.292-.159a.873.873 0 0 1 1.255.52l.094.319c.527 1.79 3.065 1.79 3.592 0l.094-.319a.873.873 0 0 1 1.255-.52l.292.16c1.64.893 3.434-.902 2.54-2.541l-.159-.292a.873.873 0 0 1 .52-1.255l.319-.094c1.79-.527 1.79-3.065 0-3.592l-.319-.094a.873.873 0 0 1-.52-1.255l.16-.292c.893-1.64-.902-3.433-2.541-2.54l-.292.159a.873.873 0 0 1-1.255-.52l-.094-.319zm-2.633.283c.246-.835 1.428-.835 1.674 0l.094.319a1.873 1.873 0 0 0 2.693 1.115l.291-.16c.764-.415 1.6.42 1.184 1.185l-.159.292a1.873 1.873 0 0 0 1.116 2.692l.318.094c.835.246.835 1.428 0 1.674l-.319.094a1.873 1.873 0 0 0-1.115 2.693l.16.291c.415.764-.42 1.6-1.185 1.184l-.291-.159a1.873 1.873 0 0 0-2.693 1.116l-.094.318c-.246.835-1.428.835-1.674 0l-.094-.319a1.873 1.873 0 0 0-2.692-1.115l-.292.16c-.764.415-1.6-.42-1.184-1.185l.159-.291A1.873 1.873 0 0 0 1.945 8.93l-.319-.094c-.835-.246-.835-1.428 0-1.674l.319-.094A1.873 1.873 0 0 0 3.06 4.377l-.16-.292c-.415-.764.42-1.6 1.185-1.184l.292.159a1.873 1.873 0 0 0 2.692-1.115l.094-.319z"/>
+                          </svg>
+                    </a>
+                </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+
+
+    <form action="/cadastro/" method="post">
+        {% csrf_token %}
+        <div class="modal fade" id="cadastro" tabindex="-1" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Cadastrar Acesso</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+
+                    </div>
+
+                    <div class="modal-body">
+                        <div class="col-auto">
+                            <div class="row">
+                                <div class="col">
+                                    <div class="form-floating">
+                                        <input type="text" class="form-control" id="nome_empresa" name="nome_empresa" required>
+                                        <label for="nome_empresa">Empresa</label>
+                                    </div>
+                                </div>
+
+                                <div class="col">
+                                    <div class="form-floating">
+                                        <input type="text" class="form-control" id="nome_maquina" name="nome_maquina" required>
+                                        <label for="nome_maquina">Maquina</label>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="py-2"></div>
+
+                            <div class="row">
+                                <div class="col">
+                                    <div class="form-floating">
+                                        <input type="text" class="form-control" id="id_teamviewer" name="id_teamviewer">
+                                        <label for="id_teamviewer">Team Viewer</label>
+                                    </div>
+                                </div>
+
+                                <div class="col">
+                                    <div class="form-floating">
+                                        <input type="text" class="form-control" id="senha_teamviewer" name="senha_teamviewer">
+                                        <label for="senha_teamviewer">Senha Team Viewer</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="py-2"></div>
+
+                            <div class="row">
+                                <div class="col">
+                                    <div class="form-floating">
+                                        <input type="text" class="form-control" id="id_anydesk" name="id_anydesk">
+                                        <label for="id_anydesk">Anydesk</label>
+                                    </div>
+                                </div>
+
+                                <div class="col">
+                                    <div class="form-floating">
+                                        <input type="text" class="form-control" id="senha_anydesk" name="senha_anydesk">
+                                        <label for="senha_anydesk">Senha Anydesk</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="py-2"></div>
+
+                            <div class="row">
+                                <div class="col">
+                                    <div class="form-floating">
+                                        <input type="text" class="form-control" id="id_rustdesk" name="id_rustdesk">
+                                        <label for="id_rustdesk">Rustdesk</label>
+                                    </div>
+                                </div>
+
+                                <div class="col">
+                                    <div class="form-floating">
+                                        <input type="text" class="form-control" id="senha_rustdesk" name="senha_rustdesk">
+                                        <label for="senha_rustdesk">Senha Rustdesk</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="py-2"></div>
+
+                            <div class="row">
+                                <div class="col">
+                                    <div class="form-floating">
+                                        <input type="text" class="form-control" id="id_mstc" name="id_mstc">
+                                        <label for="id_mstc">MSTC</label>
+                                    </div>
+                                </div>
+
+                                <div class="col">
+                                    <div class="form-floating">
+                                        <input type="text" class="form-control" id="senha_mstc" name="senha_mstc">
+                                        <label for="senha_mstc">Senha MSTC</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="py-2"></div>
+
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-floating">
+                                    <textarea type="text" class="form-control" id="observacao" name="observacao"></textarea>
+                                    <label for="observacao">Observação</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <input type="submit" class="btn btn-primary" value="Cadastrar">
+                    </div>
+                </div>
+
+            
+            </div>
+
+
+        </div>
+    </form>
+      
+
+    {% block conteudo %}
+    {% endblock conteudo %}
+
+
+        
+    <form action="/configuracao/" enctype="multipart/form-data" method="post">
+        {% csrf_token %}
+        <div class="modal fade" id="configuracao" tabindex="-1" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Configurações</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+
+                    </div>
+
+                    <div class="modal-body">
+                        <div class="col-auto">
+                            <div class="custom-file">
+                                <input type="file" class="custom-file-input" name="customFileLang" id="customFileLang" lang="es">
+                                
+                                <button  type="submit" id="alterarBackground">Alterar Background</button>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="mb-3 col-4">
+                                <label for="colorInput" class="form-label">Cor Barra de Navegação</label>
+                                <input type="color" class="form-control w-25" id="color_nav"  name="color_nav">
+                            </div>
+
+                            <div class="mb-3 col-4">
+                                <label for="colorInput" class="form-label">Cor letras</label>
+                                <input type="color" class="form-control w-25" id="colorLetrasNav" style="width:100px !important;" name="colorInput">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </form>
+
+
+
+
+    <footer id="footer">Teste</footer>
+
+    <script src="{% static 'js/index.js' %}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"
+        integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+        crossorigin="anonymous"></script>
+</body>
+</html>
