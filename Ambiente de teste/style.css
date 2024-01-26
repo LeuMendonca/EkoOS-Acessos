@@ -1,0 +1,56 @@
+#navegacao{
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    box-shadow:0 0 1px black;
+    margin-bottom: 20px;
+    width: 100%;
+    background-color: red;
+}
+
+#navegacao ul {
+    display: flex;
+    width: 100%;
+    gap: 2rem;
+}
+
+#navegacao ul li {
+    cursor: pointer;
+    width: 150px;
+}
+
+.config{
+    position: absolute;
+    right: 0;
+}
+
+#navegacao a{
+    cursor: pointer;
+    padding: 5px;
+}
+
+#navegacao a:hover{
+    color: orangered !important;
+}
+
+.dropdown-menu-cadastro {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+}
+
+.btn-cadastro{
+    pointer-events: none;
+}
+
+.hide {
+    display: flex;
+}
+
+
+
+
+
+p { 
+    text-align: center;
+    font-family: Verdana;
+    font-weight: bold;
+}

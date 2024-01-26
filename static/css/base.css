@@ -1,0 +1,57 @@
+/* Configurações gerais */
+*{
+    padding: 0;
+    margin: 0;
+}
+
+body{
+    background: url('../img/background.jpg') no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    width: 100vw !important;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+/* Barra de Navegação */
+#navegacao{
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    box-shadow:0 0 1px black;
+    margin-bottom: 20px;
+    width: 100%;
+    background-color: red;
+}
+
+#navegacao ul {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    gap: 2rem;    
+}
+
+#navegacao ul li {
+    width: 165px;
+    padding: 8px;
+    text-align: center;
+}
+
+.itemNav{
+    cursor: pointer;
+}
+
+.itemNav:hover {
+    border-bottom: 1px solid white !important;
+}
+
+.dropdown-menu-cadastro {
+    position: absolute;
+    display: none;
+    flex-direction: column;
+}
+
+.hide{
+    display: flex;
+}

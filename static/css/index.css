@@ -1,34 +1,11 @@
-#navegacao{
-    font-family: Georgia, 'Times New Roman', Times, serif;
-    box-shadow:0 0 1px black;
+/* Outros */
+.container {
+    background-color: white;
+    padding: 30px !important;
+    border-radius: 15px;
+    box-shadow: 0 0 20px black;
     margin-bottom: 20px;
     width: 100%;
-}
-
-#navegacao ul{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    width: 100%;
-}
-
-#navegacao a{
-    cursor: pointer;
-    padding: 5px;
-}
-
-#navegacao a:hover{
-    color: orangered !important;
-}
-
-body{
-    background: url('../img/background.jpg') no-repeat;
-    background-size: cover;
-    width: 100wh !important;
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
 }
 
 #botao_pesquisa{
@@ -58,17 +35,10 @@ body{
     box-shadow: 0 0 3px black;
 }
 
-.container {
-    background-color: white;
-    padding: 30px;
-    border-radius: 15px;
-    box-shadow: 0 0 20px black;
-    margin-bottom: 20px;
-    width: 100%;
-}
-
-#observacao,#info_observacao{
-    height: 250px;resize: none;
+.form-control.observacao,
+#info_observacao{
+    height: 250px;
+    resize: none;
 }
 
 tbody td a {
@@ -87,9 +57,6 @@ table {
     border: 1px solid rgba(0, 0, 0, 0.075) ;
 }
 
-.table-container {
-    background-image: url("/static/img/background_index.jpeg");
-}
 
 .pagination a{
     color: black;
@@ -113,4 +80,4 @@ footer{
     margin-bottom: 0;
     color: white;
     padding: 5px;
-  }
+}

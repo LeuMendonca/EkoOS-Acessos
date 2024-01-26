@@ -1,0 +1,53 @@
+{% extends "app/base.html" %}
+{% load static %}
+
+{% block head %}
+    <title>EkoOS Acessos - Ferramentas</title>
+    <link rel="stylesheet" href="{% static 'css/ferramentas.css' %}">
+    <script src="{% static 'js/ferramenta.js' %}" defer></script>
+{% endblock head %}
+
+{% block conteudo %}
+
+    <div class="container">
+        
+        <div class="container-search">
+
+            <form method="get">
+                <div class="row">
+                    <label for=""></label>
+                    <input type="search" class="form-control" name="search-tool" id="search-tool" placeholder="Pesquise pela Tool">
+                </div>
+            </form>
+        
+        </div>
+
+        <div class="container-tools">
+            {% for ferramenta in ferramentas  %}
+                
+                <div class="tool">
+
+                    <header class="header">
+
+                        <h3 class="title-tool">{{ ferramenta.1 }}</h3> 
+
+                        <a  class="btn-delete" onclick="deleteTool('{{ ferramenta.0}}')">
+
+                            <i class="fa-solid fa-xmark"></i>
+
+                        </a>
+
+                    </header>
+
+                    <p class="tool-paragraph animation-collapsible">{{ ferramenta.2 }}</p>
+
+                </div>
+
+            {% endfor %}
+
+        </div>
+
+    </div>
+
+{% endblock conteudo %}
+

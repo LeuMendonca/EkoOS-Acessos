@@ -1,9 +1,12 @@
 from django.urls import path
-from .views import index,cadastro,update,deletar,acesso_teamviewer,acesso_anydesk,configuracao_imagem
+from .views import index,cadastro,update,deletar,acesso_teamviewer,acesso_anydesk,configuracao_imagem,ferramentas,cadastroFerramentas , deleteTools
 
 urlpatterns = [
     path('index/',index,name="index"),
-    path('cadastro/',cadastro,name="cadastro"),
+    path('cadastrar/',cadastro,name="cadastro"),
+    path('ferramentas/', ferramentas , name="ferramentas"),
+    path('cadastrar-tools/', cadastroFerramentas , name="cadastrar_tools"),
+    path('delete_tools/<int:id>' , deleteTools , name= 'delete_tools'),
     path('update/<int:seq_acesso>',update,name="update"),
     path('delete/<int:seq_acesso>',deletar,name="deletar"),
     path('configuracao/',configuracao_imagem , name="configuracao"),

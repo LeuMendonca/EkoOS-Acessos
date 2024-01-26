@@ -82,6 +82,8 @@ def cadastro(request):
                             '{request.POST.get("observacao")}',
                             {seq_acesso})
                     """)
+        
+        print(request.POST.get("observacao"))
         connection.commit()
 
         return redirect('/index/?status=1')
@@ -160,6 +162,7 @@ def deletar(request,seq_acesso):
 def configuracao_imagem(request):
     if request.method == "POST":
         arquivo = request.FILES.get("customFileLang")
+        print(arquivo)
         if arquivo:
             caminho = os.path.join(settings.MEDIA_ROOT , "static" , "img" , "background.jpg" )
 
@@ -168,3 +171,38 @@ def configuracao_imagem(request):
                     caminho_destinatario.write(chunk)
 
     return redirect('/index/')
+
+# -----------------------------Página de Ferramentas-------------------------------------
+def ferramentas(request):
+    if request.method == 'GET':
+        cursor = connection.cursor()
+
+        cursor.execute("select * from tools where status = 'A' ")
+
+        allTools = cursor.fetchall()
+
+        return render(request , "app/ferramentas.html",{ "ferramentas" : allTools })
+
+def cadastroFerramentas(request):
+    if request.method == "POST":
+
+        cursor = connection.cursor()
+
+        titleTool = request.POST.get("title-tool" , "")
+        bodyTool = request.POST.get("body-tool" , "")
+
+        cursor.execute(f"insert into tools( titulo , body , status ) values($${ titleTool }$$ , $${ bodyTool }$$ , 'A' )")
+
+        connection.commit()
+        
+        return redirect("/ferramentas/")
+    
+
+def deleteTools( request , id ):
+    cursor = connection.cursor()
+
+    cursor.execute(f"delete from tools where id = {id}")
+
+    connection.commit()
+
+    return redirect("/ferramentas/")

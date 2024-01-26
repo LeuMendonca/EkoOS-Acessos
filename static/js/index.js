@@ -1,50 +1,30 @@
-function valida_campos(){
-//-----------------------------Validação dos Campos de Cadastro-------------------------------
-    if (window.document.querySelector("input#id_teamviewer").value.length > 0){
-        window.document.querySelector("input#senha_teamviewer").setAttribute("required","true")
-    }else{
-        window.document.querySelector("input#senha_teamviewer").removeAttribute("required")
-    }
+function valida_campos() {
+    const campos = document.querySelectorAll(".campo-acesso");
 
-    if (window.document.querySelector("input#id_anydesk").value.length > 0){
-        window.document.querySelector("input#senha_anydesk").setAttribute("required","true")
-    }else{
-        window.document.querySelector("input#senha_anydesk").removeAttribute("required")
-    }
+    for (const campo of campos) {
+        const id = campo.getAttribute("id");
 
-    if (window.document.querySelector("input#id_rustdesk").value.length > 0){
-        window.document.querySelector("input#senha_rustdesk").setAttribute("required","true")
-    }else{
-        window.document.querySelector("input#senha_rustdesk").removeAttribute("required")
-    }
+        if (id.includes("id_")) {
+            const proximoCampo = document.querySelector(`#${campo.nextElementSibling.getAttribute("id")}`);
 
-                        /* Se digitar na senha , obrigatorio por o ID */
-    if (window.document.querySelector("input#senha_teamviewer").value.length > 0){
-        window.document.querySelector("input#id_teamviewer").setAttribute("required","true")
-    }else{
-        window.document.querySelector("input#id_teamviewer").removeAttribute("required")
-    }
+            if (campo.value.length > 0) {
+                proximoCampo.setAttribute("required", "true");
+            } else {
+                proximoCampo.removeAttribute("required");
+            }
+        }
 
-    if (window.document.querySelector("input#senha_anydesk").value.length > 0){
-        window.document.querySelector("input#id_anydesk").setAttribute("required","true")
-    }else{
-        window.document.querySelector("input#id_anydesk").removeAttribute("required")
-    }
+        if (id.includes("senha_")) {
+            const campoAnterior = document.querySelector(`#${campo.previousElementSibling.getAttribute("id")}`);
 
-    if (window.document.querySelector("input#senha_rustdesk").value.length > 0){
-        window.document.querySelector("input#id_rustdesk").setAttribute("required","true")
-    }else{
-        window.document.querySelector("input#id_rustdesk").removeAttribute("required")
+            if (campo.value.length > 0) {
+                campoAnterior.setAttribute("required", "true");
+            } else {
+                campoAnterior.removeAttribute("required");
+            }
+        }
     }
 }
-
-//---------------------------Adição dos eventos change aos componentes----------------------
-window.document.querySelector("input#id_teamviewer").addEventListener("change",valida_campos)
-window.document.querySelector("input#id_anydesk").addEventListener("change",valida_campos)
-window.document.querySelector("input#id_rustdesk").addEventListener("change",valida_campos)
-window.document.querySelector("input#senha_teamviewer").addEventListener("change",valida_campos)
-window.document.querySelector("input#senha_anydesk").addEventListener("change",valida_campos)
-window.document.querySelector("input#senha_rustdesk").addEventListener("change",valida_campos)
 
 
 //---------------Remoção da mensagem na tela-----------------
@@ -65,16 +45,25 @@ function deleteAcesso(seq_acesso){
 
 
 // ----------------- Seleção Componentes-----------------------------
+let linksNav = document.querySelectorAll("#navegacao a")
+let itemCorNav = document.querySelector("#color_nav")
+let itemCorLetraNav = document.querySelector("#colorLetrasNav")
+let barraNavegacao = document.querySelector("nav#navegacao")
+let footer = document.querySelector("#footer")
+const camposAcesso = document.querySelectorAll(".campo-acesso")
 
-let itemCorNav = window.document.querySelector("#color_nav")
-let itemCorLetraNav = window.document.querySelector("#colorLetrasNav")
-let barraNavegacao = window.document.querySelector("nav#navegacao")
-let footer = window.document.querySelector("#footer")
+//---------------------------Adição dos eventos change aos componentes----------------------
+
+camposAcesso.forEach( ( element ) => {
+    element.addEventListener("change",valida_campos)
+})
 
 // ----------------- Nav---------------------------------
 
 itemCorNav.addEventListener("change", () =>{
+
     const cor_selecionada = itemCorNav.value
+    
     salvarCorNoLocalStorage(cor_selecionada)
     atualizaCorNoFooter(cor_selecionada)
     atualizarCorNaNavegacao(cor_selecionada)
@@ -152,8 +141,38 @@ function formatarNumero(numero) {
     return numero < 10 ? '0' + numero : numero;
 }
 
+// Formatação quebra de linha dos paragrafos da tela de Ferramentas
+function formataParagrafo(){
+    
+    const paragrafosTools = document.querySelectorAll(".tool-paragraph")
+    
+    paragrafosTools.forEach( ( elemento ) => {
+        let textoParagrafo = elemento.innerHTML.replace(/\n/g , "<br>")
+        
+       elemento.innerHTML = textoParagrafo
+    })
+    
+}
+
+// Confirmação Delete Tool
+function deleteTool( idTool){
+    if ( window.confirm("Deseja deletar essa Tool?") == true ){
+        fetch(`/delete_tools/${idTool}`)
+    }
+}
+
+// Evento botão cadastro
+const buttonCadastro = document.querySelector(".dropdown-principal");
+const dropdownMenuCadastro = document.querySelector(".dropdown-menu-cadastro");
+
+buttonCadastro.addEventListener("click", () => {
+    dropdownMenuCadastro.classList.toggle("hide");  
+});
+
 // Atualizar a cada segundo (1000 milissegundos)
 setInterval(atualizarDataHora, 1000);
 
 // Chamar a função inicialmente para evitar um atraso de um segundo na exibição
 atualizarDataHora();
+
+formataParagrafo();
