@@ -19,9 +19,15 @@
 
   <body onload="carregarCores()">
 
-    <nav class="navbar navbar-expand-lg" id="navegacao">
+    <header id="navegacao">
+      
 
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0" id="list-itens">
+      <nav class="navbar navbar-expand-lg" id="navegacao">
+        <div class="title">
+          <a class="navbar-brand itemNav">Bem vindo , {{ request.session.user }}</a>
+        </div>
+
+        <ul class="navbar-nav" id="list-itens">
 
           <li>
             <a class="navbar-brand itemNav" href="/index/">Acessos</a>
@@ -34,8 +40,12 @@
           <li>
             <a class="navbar-brand itemNav" href="#">Escala</a>
           </li>  
+        </ul>
           
-          <li class="dropdown-class">
+      </nav>
+
+        <div class="icons">
+          <span class="dropdown-class">
             <a class="navbar-brand  itemNav btn-cadastro dropdown-principal"><i class="fa-solid fa-plus"></i></a>
 
             <div class="dropdown-menu-cadastro">
@@ -50,10 +60,10 @@
                 class="navbar-brand itemNav">Cadastrar Tools</a>
             </div>
 
-          </li>
+          </span>
 
 
-          <li class="config">
+          <span class="config">
             
             <a data-bs-toggle="modal"
               data-bs-target="#configuracao"
@@ -73,11 +83,14 @@
 
             </a>
 
-          </li>
+          </span>
 
-      </ul>
+          <span>
+            <a href="{% url 'logoff'%}" class="itemNav"><i class="fa-solid fa-door-open"></i></a>
+          </span>
 
-    </nav>
+        </div>
+    </header>
 
     <!-- Formulario de Cadastro em modal-->
 
@@ -366,7 +379,7 @@
 
                   <label for="body-tool" class="form-label">Informações:</label>
 
-                  <textarea  type="text" class="form-control observacao" id="body-tool" name="body-tool"></textarea>
+                  <textarea  type="text" class="form-control observacao" id="body-tool" name="body-tool" placeholder="Para configurar o .ini devemos..."></textarea>
 
                 </div>
 
@@ -411,17 +424,17 @@
             <div class="modal-body">
               <div class="col-auto">
                 <div class="custom-file">
-                  <input
-                    type="file"
-                    class="custom-file-input"
+                  <div class="row">
+                    <input class="form-control w-50" type="file" 
                     name="customFileLang"
                     id="customFileLang"
-                    lang="es"
-                  />
+                    lang="es">
 
-                  <button type="submit" id="alterarBackground">
-                    Alterar Background
-                  </button>
+                    <button type="submit" class="btn btn-secondary w-25 mx-4" id="alterarBackground">
+                      Alterar Background
+                    </button>
+                  </div>
+                  
                 </div>
               </div>
             </div>
@@ -463,7 +476,15 @@
 
     
 
-    <footer id="footer"></footer>
+    <footer id="footer">
+
+      
+
+      <div class="data-hora">
+
+      </div>
+
+    </footer>
 
     
     <script src="{% static 'js/index.js' %}" defer></script>

@@ -1,7 +1,8 @@
 /* Configurações gerais */
-*{
+* { 
     padding: 0;
     margin: 0;
+    box-sizing: border-box;
 }
 
 body{
@@ -15,43 +16,127 @@ body{
     justify-content: space-between;
 }
 
+ul {
+    list-style: none;
+}
 /* Barra de Navegação */
+
+header{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 15px;
+    justify-content: space-between;
+}
+
+.title {
+    width: 380px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    height: 100%;
+}
+
 #navegacao{
     font-family: Georgia, 'Times New Roman', Times, serif;
-    box-shadow:0 0 1px black;
-    margin-bottom: 20px;
     width: 100%;
     background-color: red;
+    position: relative;
+    display: flex;
+    padding-left: 15px;
 }
 
 #navegacao ul {
     display: flex;
     flex-direction: row;
+    align-items: center;
     justify-content: space-between;
     width: 100%;
     gap: 2rem;    
+    flex: 1;
 }
 
 #navegacao ul li {
-    width: 165px;
-    padding: 8px;
+    width: 150px !important;
     text-align: center;
+    padding: 8px 0;
+    flex: 1;
+}
+
+.icons {
+    width: 160px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 20px;
+}
+
+.icons span a i{
+    font-size: 20px;
 }
 
 .itemNav{
     cursor: pointer;
+    transition: .3s;
 }
 
-.itemNav:hover {
-    border-bottom: 1px solid white !important;
+.itemNav:hover{
+    color: #000 !important;
 }
 
-.dropdown-menu-cadastro {
+.dropdown-principal i{
+    pointer-events: none;
+}
+
+.rotacionar{
+    animation: giraIcone .3s linear;
+}
+
+.desrotacionar{
+    animation: desviraIcone .3s linear;
+}
+
+.dropdown-menu-cadastro{
     position: absolute;
     display: none;
     flex-direction: column;
+    margin-top: 15px ;
+    z-index: 1;
+    transform: translateX(-76px);
+}
+
+.dropdown-menu-cadastro a{
+    background-color: red;
+    padding: .9rem;
 }
 
 .hide{
     display: flex;
+}
+
+#customFileLang{
+    border: 1px solid #333;
+}
+
+.info-user{
+    width: 200px !important;
+    display: flex;
+}
+
+@keyframes giraIcone {
+
+    to{
+        transform: rotate(180deg);
+    }
+}
+
+@keyframes desviraIcone {
+
+    from{
+        transform: rotate(0);
+    }
+
+    to{
+        transform: rotate(-180deg);
+    }
 }

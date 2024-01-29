@@ -1,0 +1,104 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EkoOS Suporte</title>
+    <!--<link rel="stylesheet" href="{% static 'css/login.css' %}">-->
+    <link rel="stylesheet" href="../../static/css/login.css">
+    <script src="../../static/js/login.js" defer></script>
+</head>
+<body>
+
+
+
+    <div class="container">
+
+        <form action="{% url 'login' %}" method="post" class="container-login">
+            
+            {% csrf_token %}
+            
+            <h1>EkoOS Suporte</h1>
+
+            {% if status == '1' %}
+                <div class="alert alert-success" role="alert">
+                    Acesso atualizado com sucesso.
+                </div>
+            {% endif %}
+
+            {% if status == '2' %}
+                <div class="alert alert-danger" role="alert">
+                    Erro ao cadastrar usuário.
+                </div>
+            {% endif %}
+
+            {% if status == '3' %}
+                <div class="alert alert-danger" role="alert">
+                    Usuário não encontrado.
+                </div>
+            {% endif %}
+
+            {% if status == '4' %}
+                <div class="alert alert-danger" role="alert">
+                    Faça login para continuar.
+                </div>
+            {% endif %}
+
+            <div class="form-control">
+
+                <label for="input-user">Usuário:</label>
+                <input type="text" name="input-user" id="input-user" placeholder="Digite o seu usuário." >
+
+            </div>
+
+            <div class="form-control">
+
+                <label for="input-password">Senha:</label>
+                <input type="password" name="input-password" id="input-password" placeholder="Digite a sua senha." >
+
+            </div>
+
+            <button id="btn-login">Login</button>
+
+            <div class="form-control">
+
+                <a class="link-login">Cadastrar Usuário</a>
+
+            </div>
+
+        </form>
+
+        <form action="{% url 'cadastro_usuario' %}" method="post" class="container-login invisible" autocomplete="off">{% csrf_token %}
+
+            <h1>EkoOS Suporte</h1>
+
+            <h3>Cadastrar Usuário</h3>
+
+            <div class="form-control">
+
+                <label for="input-user-cadastro">Usuário:</label>
+                <input type="text" name="input-user-cadastro" id="input-user-cadastro" placeholder="Digite o seu usuário." >
+
+            </div>
+
+            <div class="form-control">
+
+                <label for="input-password-cadastro">Senha:</label>
+                <input type="password" name="input-password-cadastro" id="input-password-cadastro" placeholder="Digite a sua senha." >
+
+            </div>
+
+            <button id="btn-cadastro">Cadastrar</button>
+
+            <div class="form-control">
+
+                <p>
+                    Já possui uuário? <a class="link-login btn-return">Clique aqui</a>
+                </p>
+
+            </div>
+        </form>
+    </div>
+</body>
+</html>

@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import index,cadastro,update,deletar,acesso_teamviewer,acesso_anydesk,configuracao_imagem,ferramentas,cadastroFerramentas , deleteTools
+from .views import index,cadastro,update,deletar,acesso_teamviewer,acesso_anydesk,configuracao_imagem,ferramentas,cadastroFerramentas , deleteTools , cadastroUsuario ,login,sair
 
 urlpatterns = [
     path('index/',index,name="index"),
@@ -11,5 +11,8 @@ urlpatterns = [
     path('delete/<int:seq_acesso>',deletar,name="deletar"),
     path('configuracao/',configuracao_imagem , name="configuracao"),
     path('acessar_teamviewer/<int:seq_acesso>',acesso_teamviewer,name='acesso_teamviewer'),
-    path('acessar_anydesk/<int:seq_acesso>' , acesso_anydesk , name='acesso_anydesk')
+    path('acessar_anydesk/<int:seq_acesso>' , acesso_anydesk , name='acesso_anydesk'),
+    path('login/' , login , name="login"),
+    path('cadastro-usuarios/' , cadastroUsuario , name="cadastro_usuario"),
+    path('logoff/' , sair , name="logoff")
 ]

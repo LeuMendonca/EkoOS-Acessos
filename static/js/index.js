@@ -48,9 +48,11 @@ function deleteAcesso(seq_acesso){
 let linksNav = document.querySelectorAll("#navegacao a")
 let itemCorNav = document.querySelector("#color_nav")
 let itemCorLetraNav = document.querySelector("#colorLetrasNav")
-let barraNavegacao = document.querySelector("nav#navegacao")
+let barraNavegacao = document.querySelector("#navegacao")
 let footer = document.querySelector("#footer")
+let dataHora = document.querySelector(".data-hora")
 const camposAcesso = document.querySelectorAll(".campo-acesso")
+
 
 //---------------------------Adição dos eventos change aos componentes----------------------
 
@@ -75,6 +77,12 @@ function salvarCorNoLocalStorage(cor){
 
 function atualizarCorNaNavegacao(cor){
     barraNavegacao.style.backgroundColor = cor
+
+    const menuDropdown = document.querySelectorAll(".dropdown-menu-cadastro a")
+    menuDropdown.forEach( elemento => elemento.style.backgroundColor = cor)
+
+    const menuDropdownPerfil = document.querySelectorAll(".dropdown-menu-user a")
+    menuDropdownPerfil.forEach( elemento => elemento.style.backgroundColor = cor)
 }
 
 // -----------------Letras Nav----------------------------
@@ -134,7 +142,7 @@ function atualizarDataHora() {
     var horaFormatada = `${formatarNumero(dataAtual.getHours())}:${formatarNumero(dataAtual.getMinutes())}:${formatarNumero(dataAtual.getSeconds())}`;
 
     // Atualizar o elemento HTML
-    footer.innerText = `Data: ${dataFormatada} | Hora: ${horaFormatada}`;
+    dataHora.innerText = `Data: ${dataFormatada} | Hora: ${horaFormatada}`;
 }
 
 function formatarNumero(numero) {
@@ -165,8 +173,19 @@ function deleteTool( idTool){
 const buttonCadastro = document.querySelector(".dropdown-principal");
 const dropdownMenuCadastro = document.querySelector(".dropdown-menu-cadastro");
 
-buttonCadastro.addEventListener("click", () => {
+const dropdownMenuPerfil = document.querySelector(".dropdown-menu-user");
+const buttonPerfil = document.querySelector(".dropdown-secundario");
+
+
+buttonCadastro.addEventListener("click", (e) => {
+
+    const elementLink = e.target
+
+    elementLink.querySelector("i").classList.toggle("rotacionar")
+    elementLink.querySelector("i").classList.toggle("desrotacionar")
+    
     dropdownMenuCadastro.classList.toggle("hide");  
+      
 });
 
 // Atualizar a cada segundo (1000 milissegundos)

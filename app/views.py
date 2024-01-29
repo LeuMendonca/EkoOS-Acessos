@@ -5,30 +5,76 @@ from django.conf import settings
 import os
 import subprocess
 
+# Cadastrar usuário
+def cadastroUsuario( request ):
+    if request.method == "POST":
+        user = request.POST.get("input-user-cadastro")
+        password = request.POST.get("input-password-cadastro")
+
+        cursor = connection.cursor()
+
+        try:
+            cursor.execute( f"""INSERT INTO USUARIOS ( USUARIO , SENHA ) VALUES ( '{ user }' , '{ password }' )""")
+            
+            connection.commit()
+
+            return redirect("/login/?status=1")
+        except:
+            return redirect("/login/?status=2")
+            
+
+def login( request ):
+    status = request.GET.get("status")
+
+    if request.method == "POST":
+        user = request.POST.get("input-user")
+        password = request.POST.get("input-password")
+
+        cursor = connection.cursor()
+
+        cursor.execute(f" select usuario , senha from usuarios where usuario = '{ user }' and senha = '{ password }'")
+        valida_usuario = cursor.fetchall()
+
+        if valida_usuario != []:
+
+            request.session["user"] = valida_usuario[0][0]
+            return redirect('/index/')
+        return redirect('/login/?status=3')
+        
+
+    return render( request , 'app/login.html' , { "status" : status })
+
+# ---------------------------------------Logoff----------------------------------
+def sair(request):
+    request.session.flush()
+    return redirect('login')
 
 #---------------------------------------Index da Aplicação----------------------------------
 def index(request):
-
-        cursor = connection.cursor()
-        busca = request.GET.get("busca")
-        status = request.GET.get("status")
-
-        if busca:
-            cursor.execute(f"""
-                           select * from acessos where empresa like '%{busca.upper()}%' or nome_maquina like '%{busca.upper()}%' order by seq_acesso
-                            """)
-
-            acessos = cursor.fetchall()
-        else:
-            cursor.execute(f"""SELECT * FROM acessos order by seq_acesso""")
-            acessos = cursor.fetchall()
         
-        paginacao = Paginator(acessos,8)
-        numero_paginas = request.GET.get("page")
-        page_obj = paginacao.get_page(numero_paginas)
-        
-        
-        return render(request,'app/index.html',{'status':status , 'acessos': page_obj })
+        if request.session.get("user"):
+
+            cursor = connection.cursor()
+            busca = request.GET.get("busca")
+            status = request.GET.get("status")
+
+            if busca:
+                cursor.execute(f"""
+                            select * from acessos where empresa like '%{busca.upper()}%' or nome_maquina like '%{busca.upper()}%' order by seq_acesso
+                                """)
+
+                acessos = cursor.fetchall()
+            else:
+                cursor.execute(f"""SELECT * FROM acessos order by seq_acesso""")
+                acessos = cursor.fetchall()
+            
+            paginacao = Paginator(acessos,8)
+            numero_paginas = request.GET.get("page")
+            page_obj = paginacao.get_page(numero_paginas)
+            
+            
+            return render(request,'app/index.html',{'status':status , 'acessos': page_obj })
+        return redirect('/login/?status=4')
 
 
 
@@ -183,6 +229,7 @@ def ferramentas(request):
 
         return render(request , "app/ferramentas.html",{ "ferramentas" : allTools })
 
+# Cadastrar nova Tool
 def cadastroFerramentas(request):
     if request.method == "POST":
 
@@ -198,6 +245,7 @@ def cadastroFerramentas(request):
         return redirect("/ferramentas/")
     
 
+# Deletar Tool
 def deleteTools( request , id ):
     cursor = connection.cursor()
 
@@ -206,3 +254,4 @@ def deleteTools( request , id ):
     connection.commit()
 
     return redirect("/ferramentas/")
+
