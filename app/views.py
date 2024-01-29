@@ -34,10 +34,13 @@ def login( request ):
 
         cursor.execute(f" select usuario , senha from usuarios where usuario = '{ user }' and senha = '{ password }'")
         valida_usuario = cursor.fetchall()
-
+        
         if valida_usuario != []:
 
             request.session["user"] = valida_usuario[0][0]
+
+            print( valida_usuario )
+
             return redirect('/index/')
         return redirect('/login/?status=3')
         
@@ -45,6 +48,7 @@ def login( request ):
     return render( request , 'app/login.html' , { "status" : status })
 
 # ---------------------------------------Logoff----------------------------------
+
 def sair(request):
     request.session.flush()
     return redirect('login')
@@ -68,7 +72,7 @@ def index(request):
                 cursor.execute(f"""SELECT * FROM acessos order by seq_acesso""")
                 acessos = cursor.fetchall()
             
-            paginacao = Paginator(acessos,8)
+            paginacao = Paginator(acessos,10)
             numero_paginas = request.GET.get("page")
             page_obj = paginacao.get_page(numero_paginas)
             
@@ -220,10 +224,10 @@ def configuracao_imagem(request):
 
 # -----------------------------Página de Ferramentas-------------------------------------
 def ferramentas(request):
-    if request.method == 'GET':
+   
         cursor = connection.cursor()
 
-        cursor.execute("select * from tools where status = 'A' ")
+        cursor.execute("select * from tools where status = 'A' order by titulo")
 
         allTools = cursor.fetchall()
 
@@ -245,6 +249,20 @@ def cadastroFerramentas(request):
         return redirect("/ferramentas/")
     
 
+# Atualizar Tools
+def updateTools( request , id ):
+
+    if request.method == 'POST':
+        attTitle = request.POST.get("title-tool-att")
+        attBody = request.POST.get("body-tool-att")
+
+        cursor = connection.cursor()
+        cursor.execute(f"update tools set titulo = '{ attTitle }' , body= '{ attBody }' where id = { id } ")
+
+        connection.commit()
+
+    return redirect('/ferramentas/')
+
 # Deletar Tool
 def deleteTools( request , id ):
     cursor = connection.cursor()
@@ -252,6 +270,4 @@ def deleteTools( request , id ):
     cursor.execute(f"delete from tools where id = {id}")
 
     connection.commit()
-
-    return redirect("/ferramentas/")
 

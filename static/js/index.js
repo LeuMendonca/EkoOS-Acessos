@@ -162,12 +162,6 @@ function formataParagrafo(){
     
 }
 
-// Confirmação Delete Tool
-function deleteTool( idTool){
-    if ( window.confirm("Deseja deletar essa Tool?") == true ){
-        fetch(`/delete_tools/${idTool}`)
-    }
-}
 
 // Evento botão cadastro
 const buttonCadastro = document.querySelector(".dropdown-principal");
@@ -180,6 +174,8 @@ const buttonPerfil = document.querySelector(".dropdown-secundario");
 buttonCadastro.addEventListener("click", (e) => {
 
     const elementLink = e.target
+
+    console.log(elementLink)
 
     elementLink.querySelector("i").classList.toggle("rotacionar")
     elementLink.querySelector("i").classList.toggle("desrotacionar")

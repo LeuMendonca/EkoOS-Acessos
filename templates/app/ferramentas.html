@@ -16,7 +16,7 @@
             <form method="get">
                 <div class="row">
                     <label for=""></label>
-                    <input type="search" class="form-control" name="search-tool" id="search-tool" placeholder="Pesquise pela Tool">
+                    <input type="search" class="form-control" name="search-tool" id="search-tool" placeholder="Pesquise pela Tool" autofocus>
                 </div>
             </form>
         
@@ -31,17 +31,83 @@
 
                         <h3 class="title-tool">{{ ferramenta.1 }}</h3> 
 
-                        <a  class="btn-delete" onclick="deleteTool('{{ ferramenta.0}}')">
+                        <div class="box-icons">
+                            <a  class="btn-delete" onclick="deleteTool('{{ ferramenta.0}}')">
 
-                            <i class="fa-solid fa-xmark"></i>
+                                <i class="fa-solid fa-xmark"></i>
 
-                        </a>
+                            </a>
+
+                            <a data-bs-toggle="modal" data-bs-target="#atualiza-tools{{ ferramenta.0 }}" class="navbar-brand btn-edit">
+                                <i class="fa-regular fa-pen-to-square"></i>
+                            </a>
+                        </div>
+
+                        
 
                     </header>
 
                     <p class="tool-paragraph animation-collapsible">{{ ferramenta.2 }}</p>
 
                 </div>
+
+                <form action="/atualizar-tools/{{ ferramenta.0 }}" enctype="multipart/form-data" method="post">
+
+                    {% csrf_token %}
+              
+                    <div class="modal fade"
+                      id="atualiza-tools{{ ferramenta.0 }}"
+                      tabindex="-1"
+                      aria-labelledby="exampleModalLabel"
+                      aria-hidden="true">
+              
+                      <div class="modal-dialog modal-lg">
+              
+                        <div class="modal-content">
+              
+                          <div class="modal-header">
+              
+                            <h5 class="modal-title" id="exampleModalLabel">Cadastro de Ferramentas</h5>
+              
+                            <button type="button"
+                              class="btn-close"
+                              data-bs-dismiss="modal"
+                              aria-label="Close"></button>
+                          </div>
+              
+                          <div class="modal-body">
+              
+                              <div class="mb-3">
+              
+                                <label for="title-tool-att" class="form-label">Titulo:</label>
+              
+                                <input type="text" class="form-control" id="title-tool-att" name="title-tool-att" value="{{ ferramenta.1}}">
+              
+                              </div>
+              
+                              <div class="mb-3">
+              
+                                <label for="body-tool-att" class="form-label">Informações:</label>
+              
+                                <textarea  type="text" class="form-control observacao body-tool" id="body-tool-att" name="body-tool-att" >{{ ferramenta.2 }}</textarea>
+              
+                              </div>
+              
+                          </div>
+              
+                          <div class="modal-footer">
+              
+                              <input type="submit" class="btn btn-primary" value="Atualizar" />
+              
+                          </div>
+              
+                        </div>
+              
+                      </div>
+              
+                    </div>
+              
+                  </form>
 
             {% endfor %}
 

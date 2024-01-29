@@ -10,235 +10,235 @@
     
 
 {% block conteudo %}
+    <main>
+        <div class="container">
+            {% if status == '1' %}
+                <div class="alert alert-success" role="alert">
+                    Cadastro realizado com sucesso.
+                </div>
+            {% endif %}
 
-    <div class="container">
-        {% if status == '1' %}
+            {% if status == '2' %}
+                <div class="alert alert-success" role="alert">
+                    Acesso atualizado com sucesso.
+                </div>
+            {% endif %}
+
+            {% if status == '3' %}
+                <div class="alert alert-success" role="alert">
+                    Acessando...
+                </div>
+            {% endif %}
+            
+            {% if status == '4' %}
             <div class="alert alert-success" role="alert">
-                Cadastro realizado com sucesso.
+                Acesso deletado com sucesso.
             </div>
-        {% endif %}
+            {% endif %}
 
-        {% if status == '2' %}
-            <div class="alert alert-success" role="alert">
-                Acesso atualizado com sucesso.
+            {% if status == '5' %}
+            <div class="alert alert-danger" role="alert">
+                Acesso já cadastrado no sistema.
             </div>
-        {% endif %}
+            {% endif %}
 
-        {% if status == '3' %}
-            <div class="alert alert-success" role="alert">
-                Acessando...
+            {% if status == '6' %}
+            <div class="alert alert-danger" role="alert">
+                Acesso Anydesk não preenchido no cadastro.
             </div>
-        {% endif %}
-        
-        {% if status == '4' %}
-        <div class="alert alert-success" role="alert">
-            Acesso deletado com sucesso.
-        </div>
-        {% endif %}
+            {% endif %}
 
-        {% if status == '5' %}
-        <div class="alert alert-danger" role="alert">
-            Acesso já cadastrado no sistema.
-        </div>
-        {% endif %}
-
-        {% if status == '6' %}
-        <div class="alert alert-danger" role="alert">
-            Acesso Anydesk não preenchido no cadastro.
-        </div>
-        {% endif %}
-
-        {% if status == '7' %}
-        <div class="alert alert-danger" role="alert">
-            Acesso TeamViewer não preenchido no cadastro.
-        </div>
-        {% endif %}
-
-
-        <form action="" method="get">
-            <div class="row">
-                <input type="search" name="busca" id="busca" class="form-control" placeholder="Pesquise aqui" value="{{ request.GET.busca }}" autofocus>
-                <button class="btn" id="botao_pesquisa" tabindex="-1">Pesquisar</button>
+            {% if status == '7' %}
+            <div class="alert alert-danger" role="alert">
+                Acesso TeamViewer não preenchido no cadastro.
             </div>
-        </form>
-<br>
-        <div class="table-container">
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>Codigo</th>
-                        <th>Empresa</th>
-                        <th>Maquina</th>
-                        <th> </th>
-                    </tr>
-                </thead>
+            {% endif %}
 
-                <tbody>
-                    {% for acesso in acessos  %}
+
+            <form action="" method="get">
+                <div class="row">
+                    <input type="search" name="busca" id="busca" class="form-control" placeholder="Pesquise aqui" value="{{ request.GET.busca }}" autofocus>
+                    <button class="btn" id="botao_pesquisa" tabindex="-1">Pesquisar</button>
+                </div>
+            </form>
+    <br>
+            <div class="table-container">
+                <table class="table">
+                    <thead>
                         <tr>
-                            <td>{{acesso.11}}</td>
-                            <td><a data-bs-toggle="modal" data-bs-target="#atualizar{{acesso.11}}" class="navbar-brand">{{ acesso.0 }}</a></td>
-                            <td><a data-bs-toggle="modal" data-bs-target="#atualizar{{acesso.11}}" class="navbar-brand">{{ acesso.1 }}</a></td>
-                            
-                            <form action="/update/{{acesso.11}}" method="post">
-                                {% csrf_token %}
-                                <div class="modal fade" id="atualizar{{acesso.11}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            
-                                    <div class="modal-dialog modal-lg">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="exampleModalLabel">Informações {{acesso.0}}-{{acesso.1}}</h5>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            
-                                            </div>
-            
-                                            <div class="modal-body">
-                                                <div class="col-auto">
-                                                    <div class="row">
-                                                        <div class="col">
-                                                            <div class="form-floating">
-                                                                <input type="text" class="form-control" id="nome_empresa" name="info_nome_empresa" required value="{{ acesso.0}}">
-                                                                <label for="nome_empresa">Empresa</label>
-                                                            </div>
-                                                        </div>
-            
-                                                        <div class="col">
-                                                            <div class="form-floating">
-                                                                <input type="text" class="form-control" id="nome_maquina" name="info_nome_maquina" required value="{{acesso.1}}">
-                                                                <label for="nome_maquina">Maquina</label>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-            
-            
-                                                    <div class="py-2"></div>
-            
-                                                    <div class="row">
-                                                        <div class="col">
-                                                            <div class="form-floating">
-                                                                <input type="text" class="form-control" id="id_teamviewer" name="info_id_teamviewer" value="{{acesso.2}}">
-                                                                <label for="id_teamviewer">Team Viewer</label>
-                                                            </div>
-                                                        </div>
-            
-                                                        <div class="col">
-                                                            <div class="form-floating">
-                                                                <input type="text" class="form-control" id="senha_teamviewer" name="info_senha_teamviewer" value="{{acesso.3}}">
-                                                                <label for="senha_teamviewer">Senha Team Viewer</label>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-            
-                                                    <div class="py-2"></div>
-            
-                                                    <div class="row">
-                                                        <div class="col">
-                                                            <div class="form-floating">
-                                                                <input type="text" class="form-control" id="id_anydesk" name="info_id_anydesk" value="{{acesso.4}}">
-                                                                <label for="id_anydesk">Anydesk</label>
-                                                            </div>
-                                                        </div>
-            
-                                                        <div class="col">
-                                                            <div class="form-floating">
-                                                                <input type="text" class="form-control" id="senha_anydesk" name="info_senha_anydesk" value="{{acesso.5}}">
-                                                                <label for="senha_anydesk">Senha Anydesk</label>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-            
-                                                    <div class="py-2"></div>
-            
-                                                    <div class="row">
-                                                        <div class="col">
-                                                            <div class="form-floating">
-                                                                <input type="text" class="form-control" id="id_rustdesk" name="info_id_rustdesk" value="{{acesso.6}}">
-                                                                <label for="id_rustdesk">Rustdesk</label>
-                                                            </div>
-                                                        </div>
-            
-                                                        <div class="col">
-                                                            <div class="form-floating">
-                                                                <input type="text" class="form-control" id="senha_rustdesk" name="info_senha_rustdesk" value="{{acesso.7}}">
-                                                                <label for="senha_rustdesk">Senha Rustdesk</label>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-            
-                                                    <div class="py-2"></div>
-            
-                                                    <div class="row">
-                                                        <div class="col">
-                                                            <div class="form-floating">
-                                                                <input type="text" class="form-control" id="id_mstc" name="info_id_mstc" value="{{acesso.8}}">
-                                                                <label for="id_mstc">MSTC</label>
-                                                            </div>
-                                                        </div>
-            
-                                                        <div class="col">
-                                                            <div class="form-floating">
-                                                                <input type="text" class="form-control" id="senha_mstc" name="info_senha_mstc" value="{{acesso.9}}">
-                                                                <label for="senha_mstc">Senha MSTC</label>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-            
-                                                <div class="py-2"></div>
-            
-                                                <div class="row">
-                                                    <div class="col">
-                                                        <div class="form-floating">
-                                                            <textarea type="text" class="form-control" id="info_observacao" name="info_observacao">{{acesso.10}}</textarea>
-                                                            <label for="observacao">Observação</label>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-            
-                                            <div class="modal-footer">
-                                                <input type="button" class="btn btn-danger" id="delete_acesso" onclick="deleteAcesso('{{ acesso.11 }}')" value="Deletar" >
-                                                <input type="submit" class="btn btn-primary" value="Atualizar">
-                                            </div>
-                                        </div>
-            
-                                    
-                                    </div>
-            
-            
-                                </div>
-                            </form>
-                            <td>
-                                <a href="/acessar_teamviewer/{{acesso.11}}"><img src="../../static/img/icone_tv.png" alt="Team Viewer" class="btn icone" ></a>
-
-                                <a href="/acessar_anydesk/{{ acesso.11 }}"><img src="../../static/img/icone_any.png" alt="Anydesk" class="btn icone" ></a>
-                            </td>
+                            <th>Codigo</th>
+                            <th>Empresa</th>
+                            <th>Maquina</th>
+                            <th> </th>
                         </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
-        
-        <div class="pagination">
-            <span class="step-links">
-                {% if acessos.has_previous %}
-                    <a href="?page={{ acessos.previous_page_number }}&busca={% if request.GET.busca %}{{ request.GET.busca }}{% endif %}"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-left-fill" viewBox="0 0 16 16">
-                        <path d="m3.86 8.753 5.482 4.796c.646.566 1.658.106 1.658-.753V3.204a1 1 0 0 0-1.659-.753l-5.48 4.796a1 1 0 0 0 0 1.506z"/>
-                        </svg></a>
-                {% endif %}
-        
-                <span class="current">
-                    Page {{ acessos.number }} of {{ acessos.paginator.num_pages }}.
-                </span>
-        
-                {% if acessos.has_next %}
-                    <a href="?page={{ acessos.next_page_number }}&busca={% if request.GET.busca %}{{ request.GET.busca }}{% endif %}"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-right-fill" viewBox="0 0 16 16">
-                        <path d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z"/>
-                        </svg></a>
-                {% endif %}
-            </span>
-        </div>    
-    </div>    
+                    </thead>
 
+                    <tbody>
+                        {% for acesso in acessos  %}
+                            <tr>
+                                <td>{{acesso.11}}</td>
+                                <td><a data-bs-toggle="modal" data-bs-target="#atualizar{{acesso.11}}" class="navbar-brand">{{ acesso.0 }}</a></td>
+                                <td><a data-bs-toggle="modal" data-bs-target="#atualizar{{acesso.11}}" class="navbar-brand">{{ acesso.1 }}</a></td>
+                                
+                                <form action="/update/{{acesso.11}}" method="post">
+                                    {% csrf_token %}
+                                    <div class="modal fade" id="atualizar{{acesso.11}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                
+                                        <div class="modal-dialog modal-lg">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel">Informações {{acesso.0}}-{{acesso.1}}</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                
+                                                </div>
+                
+                                                <div class="modal-body">
+                                                    <div class="col-auto">
+                                                        <div class="row">
+                                                            <div class="col">
+                                                                <div class="form-floating">
+                                                                    <input type="text" class="form-control" id="nome_empresa" name="info_nome_empresa" required value="{{ acesso.0}}">
+                                                                    <label for="nome_empresa">Empresa</label>
+                                                                </div>
+                                                            </div>
+                
+                                                            <div class="col">
+                                                                <div class="form-floating">
+                                                                    <input type="text" class="form-control" id="nome_maquina" name="info_nome_maquina" required value="{{acesso.1}}">
+                                                                    <label for="nome_maquina">Maquina</label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                
+                
+                                                        <div class="py-2"></div>
+                
+                                                        <div class="row">
+                                                            <div class="col">
+                                                                <div class="form-floating">
+                                                                    <input type="text" class="form-control" id="id_teamviewer" name="info_id_teamviewer" value="{{acesso.2}}">
+                                                                    <label for="id_teamviewer">Team Viewer</label>
+                                                                </div>
+                                                            </div>
+                
+                                                            <div class="col">
+                                                                <div class="form-floating">
+                                                                    <input type="text" class="form-control" id="senha_teamviewer" name="info_senha_teamviewer" value="{{acesso.3}}">
+                                                                    <label for="senha_teamviewer">Senha Team Viewer</label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                
+                                                        <div class="py-2"></div>
+                
+                                                        <div class="row">
+                                                            <div class="col">
+                                                                <div class="form-floating">
+                                                                    <input type="text" class="form-control" id="id_anydesk" name="info_id_anydesk" value="{{acesso.4}}">
+                                                                    <label for="id_anydesk">Anydesk</label>
+                                                                </div>
+                                                            </div>
+                
+                                                            <div class="col">
+                                                                <div class="form-floating">
+                                                                    <input type="text" class="form-control" id="senha_anydesk" name="info_senha_anydesk" value="{{acesso.5}}">
+                                                                    <label for="senha_anydesk">Senha Anydesk</label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                
+                                                        <div class="py-2"></div>
+                
+                                                        <div class="row">
+                                                            <div class="col">
+                                                                <div class="form-floating">
+                                                                    <input type="text" class="form-control" id="id_rustdesk" name="info_id_rustdesk" value="{{acesso.6}}">
+                                                                    <label for="id_rustdesk">Rustdesk</label>
+                                                                </div>
+                                                            </div>
+                
+                                                            <div class="col">
+                                                                <div class="form-floating">
+                                                                    <input type="text" class="form-control" id="senha_rustdesk" name="info_senha_rustdesk" value="{{acesso.7}}">
+                                                                    <label for="senha_rustdesk">Senha Rustdesk</label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                
+                                                        <div class="py-2"></div>
+                
+                                                        <div class="row">
+                                                            <div class="col">
+                                                                <div class="form-floating">
+                                                                    <input type="text" class="form-control" id="id_mstc" name="info_id_mstc" value="{{acesso.8}}">
+                                                                    <label for="id_mstc">MSTC</label>
+                                                                </div>
+                                                            </div>
+                
+                                                            <div class="col">
+                                                                <div class="form-floating">
+                                                                    <input type="text" class="form-control" id="senha_mstc" name="info_senha_mstc" value="{{acesso.9}}">
+                                                                    <label for="senha_mstc">Senha MSTC</label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                
+                                                    <div class="py-2"></div>
+                
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <div class="form-floating">
+                                                                <textarea type="text" class="form-control observacao" id="info_observacao" name="info_observacao">{{acesso.10}}</textarea>
+                                                                <label for="observacao">Observação</label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                
+                                                <div class="modal-footer">
+                                                    <input type="button" class="btn btn-danger" id="delete_acesso" onclick="deleteAcesso('{{ acesso.11 }}')" value="Deletar" >
+                                                    <input type="submit" class="btn btn-primary" value="Atualizar">
+                                                </div>
+                                            </div>
+                
+                                        
+                                        </div>
+                
+                
+                                    </div>
+                                </form>
+                                <td>
+                                    <a href="/acessar_teamviewer/{{acesso.11}}"><img src="../../static/img/icone_tv.png" alt="Team Viewer" class="btn icone" ></a>
+
+                                    <a href="/acessar_anydesk/{{ acesso.11 }}"><img src="../../static/img/icone_any.png" alt="Anydesk" class="btn icone" ></a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="pagination">
+                <span class="step-links">
+                    {% if acessos.has_previous %}
+                        <a href="?page={{ acessos.previous_page_number }}&busca={% if request.GET.busca %}{{ request.GET.busca }}{% endif %}"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-left-fill" viewBox="0 0 16 16">
+                            <path d="m3.86 8.753 5.482 4.796c.646.566 1.658.106 1.658-.753V3.204a1 1 0 0 0-1.659-.753l-5.48 4.796a1 1 0 0 0 0 1.506z"/>
+                            </svg></a>
+                    {% endif %}
+            
+                    <span class="current">
+                        Page {{ acessos.number }} of {{ acessos.paginator.num_pages }}.
+                    </span>
+            
+                    {% if acessos.has_next %}
+                        <a href="?page={{ acessos.next_page_number }}&busca={% if request.GET.busca %}{{ request.GET.busca }}{% endif %}"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-right-fill" viewBox="0 0 16 16">
+                            <path d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z"/>
+                            </svg></a>
+                    {% endif %}
+                </span>
+            </div>
+        </div>
+    </main>
 {% endblock conteudo %}
     

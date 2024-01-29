@@ -40,3 +40,13 @@ inputSearch.addEventListener("keyup" , ( e ) => {
     })
 
 })
+
+
+// Confirmação Delete Tool
+async function deleteTool( idTool){
+    if ( window.confirm("Deseja deletar essa Tool?") ) await fetch(`/delete_tools/${idTool}`)
+    
+    location.assign(location.href)
+    
+    // window.location.replace("/ferramentas/")
+}
