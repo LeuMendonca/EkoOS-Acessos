@@ -52,6 +52,7 @@ let barraNavegacao = document.querySelector("#navegacao")
 let footer = document.querySelector("#footer")
 let dataHora = document.querySelector(".data-hora")
 const camposAcesso = document.querySelectorAll(".campo-acesso")
+const greating = document.querySelector("#greeting")
 
 
 //---------------------------Adição dos eventos change aos componentes----------------------
@@ -161,6 +162,24 @@ function formataParagrafo(){
     })
     
 }
+
+setInterval( ( ) => {
+    let data = new Date().getHours()
+    console.log(data)
+    
+    let greatingFrase;
+
+    if( data >= 0 && data <= 6){
+        greatingFrase = "Bom dia"
+    }else if( data > 6 && data < 18){
+        greatingFrase = "Boa tarde"
+    }else{
+        greatingFrase = "Boa noite"
+    }
+
+    greating.innerText = greatingFrase
+
+},1000)
 
 
 // Evento botão cadastro
