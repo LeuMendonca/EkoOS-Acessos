@@ -4,7 +4,6 @@ from .views import index,cadastro,update,deletar,acesso_teamviewer,acesso_anydes
 urlpatterns = [
     path('index/',index,name="index"),
     path('cadastrar/',cadastro,name="cadastro"),
-    
     path('update/<int:seq_acesso>',update,name="update"),
     path('delete/<int:seq_acesso>',deletar,name="deletar"),
     path('configuracao/',configuracao_imagem , name="configuracao"),

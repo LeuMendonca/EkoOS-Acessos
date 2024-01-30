@@ -233,7 +233,7 @@ def ferramentas(request):
 
         return render(request , "app/ferramentas.html",{ "ferramentas" : allTools })
 
-# Cadastrar nova Tool
+# ----------------------------- Cadastrar nova Tool -----------------------------
 def cadastroFerramentas(request):
     if request.method == "POST":
 
@@ -249,7 +249,7 @@ def cadastroFerramentas(request):
         return redirect("/ferramentas/")
     
 
-# Atualizar Tools
+# ----------------------------- Atualizar Tools -----------------------------
 def updateTools( request , id ):
 
     if request.method == 'POST':
@@ -263,11 +263,11 @@ def updateTools( request , id ):
 
     return redirect('/ferramentas/')
 
-# Deletar Tool
+# ----------------------------- Deletar Tool -----------------------------
 def deleteTools( request , id ):
     cursor = connection.cursor()
 
-    cursor.execute(f"delete from tools where id = {id}")
+    cursor.execute(f"update tools set status = 'E' where id = {id}")
 
     connection.commit()
 

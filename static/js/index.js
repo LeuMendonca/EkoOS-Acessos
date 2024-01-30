@@ -169,9 +169,9 @@ setInterval( ( ) => {
     
     let greatingFrase;
 
-    if( data >= 0 && data <= 6){
+    if( data >= 0 && data < 12){
         greatingFrase = "Bom dia"
-    }else if( data > 6 && data < 18){
+    }else if( data > 12 && data < 18){
         greatingFrase = "Boa tarde"
     }else{
         greatingFrase = "Boa noite"
