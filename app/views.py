@@ -220,7 +220,7 @@ def configuracao_imagem(request):
                 for chunk in arquivo.chunks():
                     caminho_destinatario.write(chunk)
 
-    return redirect('/index/')
+        return redirect('/index/')
 
 # -----------------------------Página de Ferramentas-------------------------------------
 def ferramentas(request):
