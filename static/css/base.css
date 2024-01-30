@@ -16,6 +16,10 @@ body{
     justify-content: space-between;
 }
 
+body::-webkit-scrollbar {
+    display: none;
+  }
+
 ul {
     list-style: none;
 }
@@ -25,12 +29,29 @@ header{
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 0 15px;
     justify-content: space-between;
 }
 
+input[type="text"] ,
+input[type="search"],
+.observacao {
+    border: .5px solid #ccc;
+    box-shadow: none;
+}
+
+input[type="text"]:focus , 
+.observacao:focus,
+input[type="search"]:focus {
+    border-color: #000;
+    box-shadow: 0 0 3px black;
+}
+
+#icon-page {
+    color: #0095eb;
+}
+
 .title {
-    width: 380px;
+    width: 300px;
     display: flex;
     align-items: center;
     justify-content: flex-start;
@@ -40,9 +61,9 @@ header{
 #navegacao{
     font-family: Georgia, 'Times New Roman', Times, serif;
     width: 100%;
-    background-color: red;
     position: relative;
     display: flex;
+    padding-right: 15px;
     padding-left: 15px;
 }
 
@@ -69,10 +90,7 @@ header{
     align-items: center;
     justify-content: flex-end;
     gap: 20px;
-}
-
-.icons span a i{
-    font-size: 20px;
+    flex: 1;
 }
 
 .itemNav{
@@ -96,13 +114,17 @@ header{
     animation: desviraIcone .3s linear;
 }
 
+.girar:hover {
+    animation: girar360 2s infinite linear;
+}
+
 .dropdown-menu-cadastro{
     position: absolute;
     display: none;
     flex-direction: column;
     margin-top: 15px ;
     z-index: 1;
-    transform: translateX(-76px);
+    transform: translateX(-60px);
 }
 
 .dropdown-menu-cadastro a{
@@ -123,6 +145,20 @@ header{
     display: flex;
 }
 
+.conteudo-config{
+    padding: 2rem;
+}
+
+#color_nav{
+    width:100px !important;
+}
+
+.observacao,
+#info_observacao{
+    height: 250px !important;
+    resize: none;
+}
+
 @keyframes giraIcone {
 
     to{
@@ -138,5 +174,11 @@ header{
 
     to{
         transform: rotate(-180deg);
+    }
+}
+
+@keyframes girar360 {
+    to{
+        transform: rotate(360deg);
     }
 }

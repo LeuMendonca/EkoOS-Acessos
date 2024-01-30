@@ -52,6 +52,7 @@ let barraNavegacao = document.querySelector("#navegacao")
 let footer = document.querySelector("#footer")
 let dataHora = document.querySelector(".data-hora")
 const camposAcesso = document.querySelectorAll(".campo-acesso")
+const greating = document.querySelector("#greeting")
 
 
 //---------------------------Adição dos eventos change aos componentes----------------------
@@ -162,12 +163,24 @@ function formataParagrafo(){
     
 }
 
-// Confirmação Delete Tool
-function deleteTool( idTool){
-    if ( window.confirm("Deseja deletar essa Tool?") == true ){
-        fetch(`/delete_tools/${idTool}`)
+setInterval( ( ) => {
+    let data = new Date().getHours()
+    console.log(data)
+    
+    let greatingFrase;
+
+    if( data >= 0 && data < 12){
+        greatingFrase = "Bom dia"
+    }else if( data > 12 && data < 18){
+        greatingFrase = "Boa tarde"
+    }else{
+        greatingFrase = "Boa noite"
     }
-}
+
+    greating.innerText = greatingFrase
+
+},1000)
+
 
 // Evento botão cadastro
 const buttonCadastro = document.querySelector(".dropdown-principal");
@@ -180,6 +193,8 @@ const buttonPerfil = document.querySelector(".dropdown-secundario");
 buttonCadastro.addEventListener("click", (e) => {
 
     const elementLink = e.target
+
+    console.log(elementLink)
 
     elementLink.querySelector("i").classList.toggle("rotacionar")
     elementLink.querySelector("i").classList.toggle("desrotacionar")

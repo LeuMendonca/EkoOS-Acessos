@@ -3,12 +3,19 @@
 }
 
 /* Outros */
+main{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+}
+
 .container {
     background-color: white;
     padding: 30px !important;
     border-radius: 15px;
     box-shadow: 0 0 20px black;
-    margin-bottom: 20px;
+    margin: 20px 0;
     width: 100%;
 }
 
@@ -39,11 +46,7 @@
     box-shadow: 0 0 3px black;
 }
 
-.form-control.observacao,
-#info_observacao{
-    height: 250px !important;
-    resize: none;
-}
+
 
 tbody td a {
     cursor: pointer;
@@ -72,14 +75,11 @@ table {
 }
 
 
-#color_nav{
-    width:100px !important;
-}
+
 
 footer{
     display: flex;
     justify-content: space-between;
-
     margin-bottom: 15px;
     background-color: #0b5ed7;
     width: 100%;
