@@ -53,7 +53,7 @@ let footer = document.querySelector("#footer")
 let dataHora = document.querySelector(".data-hora")
 const camposAcesso = document.querySelectorAll(".campo-acesso")
 const greating = document.querySelector("#greeting")
-
+const btnBackground = document.querySelector("#alterarBackground")
 
 //---------------------------Adição dos eventos change aos componentes----------------------
 
@@ -129,6 +129,8 @@ function carregarCores(){
         atualizaCorLetrasNoFooter(corLetraArmazenada)
         itemCorLetraNav.value = corLetraArmazenada
     }
+
+    atualizaHoraGreating();
 }
 
 
@@ -163,7 +165,7 @@ function formataParagrafo(){
     
 }
 
-setInterval( ( ) => {
+const atualizaHoraGreating = ( ) => {
     let data = new Date().getHours()
     console.log(data)
     
@@ -178,8 +180,10 @@ setInterval( ( ) => {
     }
 
     greating.innerText = greatingFrase
+}
 
-},1000)
+
+setInterval( atualizaHoraGreating ,1000)
 
 
 // Evento botão cadastro
@@ -202,6 +206,10 @@ buttonCadastro.addEventListener("click", (e) => {
     dropdownMenuCadastro.classList.toggle("hide");  
       
 });
+
+btnBackground.addEventListener("click" , () => {
+    location.assign(location.href)
+})
 
 // Atualizar a cada segundo (1000 milissegundos)
 setInterval(atualizarDataHora, 1000);
