@@ -224,7 +224,7 @@ def configuracao_imagem(request):
 
 # -----------------------------Página de Ferramentas-------------------------------------
 def ferramentas(request):
-   
+    if request.session.get("user"):
         cursor = connection.cursor()
 
         cursor.execute("select * from tools where status = 'A' order by titulo")
@@ -232,6 +232,7 @@ def ferramentas(request):
         allTools = cursor.fetchall()
 
         return render(request , "app/ferramentas.html",{ "ferramentas" : allTools })
+    return redirect('/login/?status=4')
 
 # ----------------------------- Cadastrar nova Tool -----------------------------
 def cadastroFerramentas(request):
